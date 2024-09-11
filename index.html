@@ -14,6 +14,11 @@
             const article = document.getElementById('article');
             article.style.display = 'block';
         }
+
+        function showCookieClicker() {
+            const cookieArticle = document.getElementById('cookieArticle');
+            cookieArticle.style.display = 'block';
+        }
     </script>
     <style>
         .bottom-right {
@@ -21,7 +26,7 @@
             bottom: 10px;
             right: 10px;
         }
-        #article {
+        #article, #cookieArticle {
             display: none;
             margin-top: 20px;
         }
@@ -34,6 +39,7 @@
     <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
     <br><br>
     <a href="javascript:void(0)" class="bottom-right" onclick="showArticle()">Want me to build your website?</a>
+    <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="showCookieClicker()">Want to Auto Cookie Clicker?</a>
 
     <div id="article">
         <h2>So you Want me to build a website for you?</h2>
@@ -42,5 +48,66 @@
         <p>No pay, I do this for free, but I can only make websites up to 8 GB (gigabytes), so a website like this (the one you are on) is about 1.80kb which is smaller than mb (megabytes) and mg are smaller than gb, so yeah.</p>
         <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
     </div>
+
+    <div id="cookieArticle">
+        <h2>Want to Auto Cookie Clicker?</h2>
+        <p>This is a JavaScript file that will auto-click in Cookie Clicker. Here's how to paste the code in:</p>
+        <ol>
+            <li>Go to <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank">Cookie Clicker</a>.</li>
+            <li>Double click anywhere on the screen.</li>
+            <li>Click "Inspect" and go to the Console tab.</li>
+            <li>Paste the following code in:</li>
+        </ol>
+        <pre>
+(function autoClickBuyAndAscend() {
+    // Change the player's name to "ur welcome blud"
+    Game.bakeryNameSet("ur welcome blud");
+
+    // Auto-click on the big cookie
+    setInterval(function() {
+        document.getElementById('bigCookie').click();
+    }, 10);  // Adjust the interval (10 milliseconds) for clicking the cookie
+
+    // Auto-buy store upgrades
+    setInterval(function() {
+        for (var i = 0; i < Game.UpgradesInStore.length; i++) {
+            var upgrade = Game.UpgradesInStore[i];
+            if (Game.cookies >= upgrade.getPrice()) {
+                upgrade.buy();  // Buy the upgrade if you can afford it
+                console.log("Bought upgrade:", upgrade.name);
+                return;  // Exit the loop once an upgrade is bought
+            }
+        }
+    }, 1000);  // Check every 1 second for available store upgrades
+
+    // Auto-buy buildings (cursors, grandmas, etc.)
+    setInterval(function() {
+        for (var j = 0; j < Game.ObjectsById.length; j++) {
+            var building = Game.ObjectsById[j];
+            if (Game.cookies >= building.price) {
+                building.buy();  // Buy the building if you can afford it
+                console.log("Bought building:", building.name);
+                return;  // Exit the loop once a building is bought
+            }
+        }
+    }, 1000);  // Check every 1 second for available buildings to buy
+
+    // Check if cookies have reached 85.184 quintillion (8.5184e+19)
+    setInterval(function() {
+        var targetCookies = 8.5184e+19;  // 85.184 quintillion cookies
+        if (Game.cookies >= targetCookies) {
+            console.log("Target cookies reached! Clicking Legacy to ascend...");
+
+            // Check if the Legacy button is visible (usually has the id 'legacyButton')
+            if (document.getElementById('legacyButton') && document.getElementById('legacyButton').style.display != 'none') {
+                document.getElementById('legacyButton').click();  // Click the Legacy button
+                console.log("Ascended!");
+            }
+        }
+    }, 1000);  // Check every 1 second for cookie count and ascension
+})();
+        </pre>
+    </div>
 </body>
 </html>
+
