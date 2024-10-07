@@ -24,6 +24,10 @@
             const iReadyArticle = document.getElementById('iReadyHelp');
             iReadyArticle.style.display = 'block';
         }
+
+        function redirectToMediaFire() {
+            window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
+        }
     </script>
     <style>
         .bottom-right {
@@ -128,6 +132,8 @@
     <div id="iReadyHelp">
         <h2>When you download this file you'll know what to do</h2>
         <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
+        <br><br>
+        <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
     </div>
 </body>
 </html>
