@@ -28,6 +28,17 @@
         function redirectToMediaFire() {
             window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
         }
+
+        // Function to track website visits using localStorage
+        function trackVisits() {
+            let visits = localStorage.getItem('websiteVisits');
+            if (visits === null) {
+                visits = 0; // Initialize if not already set
+            }
+            visits++; // Increment the visits count
+            localStorage.setItem('websiteVisits', visits); // Save the updated count
+            document.getElementById('visitCounter').textContent = visits; // Display it
+        }
     </script>
     <style>
         .bottom-right {
@@ -48,7 +59,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="trackVisits()"> <!-- Calls trackVisits() when the page loads -->
     <h1>fwee bobux</h1>
     <button onclick="openVideo()">click me for bobux</button>
     <br><br>
@@ -135,5 +146,11 @@
         <br><br>
         <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
     </div>
+
+    <!-- Website visit counter display -->
+    <div>
+        <h3>Website Visits: <span id="visitCounter"></span></h3>
+    </div>
+
 </body>
 </html>
