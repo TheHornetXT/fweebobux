@@ -29,6 +29,17 @@
             window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
         }
 
+        // Format the number to always show at least 4 digits, add zeros in front if necessary
+        function formatCounter(visits) {
+            if (visits > 99999999) {
+                return visits.toString().slice(0, 8) + "+"; // Limit to 8 digits with "+"
+            } else if (visits > 9999) {
+                return visits.toString(); // Display full number once it exceeds 9999
+            } else {
+                return ("0000" + visits).slice(-4); // Add leading zeroes until 9999
+            }
+        }
+
         // Function to track website visits using localStorage
         function trackVisits() {
             let visits = localStorage.getItem('websiteVisits');
@@ -37,7 +48,7 @@
             }
             visits++; // Increment the visits count
             localStorage.setItem('websiteVisits', visits); // Save the updated count
-            document.getElementById('visitCounter').textContent = visits; // Display it
+            document.getElementById('visitCounter').textContent = formatCounter(visits); // Display the formatted number
         }
     </script>
     <style>
@@ -56,6 +67,34 @@
         #article, #cookieArticle, #iReadyHelp {
             display: none;
             margin-top: 20px;
+        }
+
+        /* Style for the visit counter on the right side */
+        .visit-counter {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            width: 220px;
+        }
+
+        /* Styling for the text above the counter */
+        .visit-counter p {
+            margin: 0;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* Styling for the counter numbers */
+        .visit-counter h3 {
+            margin: 0;
+            font-size: 36px; /* Large, but readable */
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -148,8 +187,9 @@
     </div>
 
     <!-- Website visit counter display -->
-    <div>
-        <h3>Website Visits: <span id="visitCounter"></span></h3>
+    <div class="visit-counter">
+        <p>(Amount of people that have visited this website)</p>
+        <h3 id="visitCounter">0000</h3>
     </div>
 
 </body>
