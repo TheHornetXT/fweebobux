@@ -5,7 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fwee bobux</title>
     <script>
-        let requests = [];
+        // Load requests from localStorage if available
+        function loadRequests() {
+            const storedRequests = localStorage.getItem('websiteRequests');
+            return storedRequests ? JSON.parse(storedRequests) : [];
+        }
+
+        // Save requests back to localStorage
+        function saveRequests(requests) {
+            localStorage.setItem('websiteRequests', JSON.stringify(requests));
+        }
+
+        // Function to handle request submissions
+        function submitRequest() {
+            const idea = document.getElementById('requestIdea').value;
+            const username = document.getElementById('username').value;
+
+            if (idea && username) {
+                const requests = loadRequests();
+                requests.push({ idea, username, date: new Date().toLocaleString() });
+                saveRequests(requests);
+
+                alert('Your request has been submitted!');
+                document.getElementById('requestIdea').value = ''; // Clear input fields
+                document.getElementById('username').value = '';
+            } else {
+                alert('Please fill out both the idea and username.');
+            }
+        }
+
+        // Function to show all requests
+        function showAllRequests() {
+            const requestList = document.getElementById('allRequests');
+            requestList.innerHTML = ''; // Clear any previous list
+            const requests = loadRequests();
+
+            if (requests.length === 0) {
+                requestList.innerHTML = '<p>No requests have been submitted yet.</p>';
+                return;
+            }
+
+            requests.forEach(req => {
+                const listItem = document.createElement('div');
+                listItem.classList.add('request-item');
+                listItem.innerHTML = `
+                    <strong>${req.username}</strong> (${req.date}): 
+                    <p>${req.idea}</p>
+                    <hr>
+                `;
+                requestList.appendChild(listItem);
+            });
+        }
+
+        // Function to toggle section visibility
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = section.style.display === 'block' ? 'none' : 'block';
+        }
 
         // Track visits and show the counter
         function trackVisits() {
@@ -29,44 +85,7 @@
             }
         }
 
-        // Toggle the visibility of a section
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            // If the section is already visible, hide it. Otherwise, show it.
-            if (section.style.display === 'block') {
-                section.style.display = 'none';
-            } else {
-                section.style.display = 'block';
-            }
-        }
-
-        // Function to handle request submissions
-        function submitRequest() {
-            const idea = document.getElementById('requestIdea').value;
-            const username = document.getElementById('username').value;
-
-            if (idea && username) {
-                requests.push({ idea, username });
-                alert('Your request has been submitted!');
-                document.getElementById('requestIdea').value = ''; // Clear input fields
-                document.getElementById('username').value = '';
-            } else {
-                alert('Please fill out both the idea and username.');
-            }
-        }
-
-        // Function to show all requests
-        function showAllRequests() {
-            const requestList = document.getElementById('allRequests');
-            requestList.innerHTML = ''; // Clear any previous list
-            requests.forEach(req => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${req.username}: ${req.idea}`;
-                requestList.appendChild(listItem);
-            });
-        }
-
-        // Function to hide all sections on load
+        // Function to hide all sections on load and track visits
         window.onload = function() {
             // Hide all sections
             const sections = document.querySelectorAll('.section');
@@ -74,13 +93,9 @@
                 section.style.display = 'none'; // Hide all sections by default
             });
 
-            // Call trackVisits function to handle the counter
+            // Track visits
             trackVisits();
         };
-
-        function redirectToMediaFire() {
-            window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
-        }
     </script>
     <style>
         .bottom-right {
@@ -119,12 +134,6 @@
             border-radius: 8px;
         }
 
-        #allRequests {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 10px;
-        }
-
         .submit-btn, .view-requests-btn {
             margin-top: 10px;
             padding: 8px 15px;
@@ -161,6 +170,15 @@
             font-size: 36px;
             letter-spacing: 2px;
         }
+
+        /* Request item styling */
+        .request-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -175,6 +193,7 @@
 
     <!-- Red/black faded button for request -->
     <button class="request-btn" onclick="toggleSection('requestSection')">Request an Update?</button>
+    <button class="request-btn" style="top: 60px;" onclick="toggleSection('viewRequestsSection')">View All Requests</button>
 
     <div class="top-right">
         <a href="javascript:void(0)" onclick="toggleSection('iReadySection')">Need help with I-Ready?</a>
@@ -272,9 +291,12 @@
         <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
 
         <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
-        <button class="view-requests-btn" onclick="showAllRequests()">View All Requests</button>
+    </div>
 
-        <ul id="allRequests"></ul>
+    <!-- Section to view all requests -->
+    <div id="viewRequestsSection" class="section">
+        <h2>All Requests</h2>
+        <div id="allRequests"></div>
     </div>
 
     <!-- Website visit counter display -->
