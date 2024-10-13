@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fwee bobux</title>
     <script>
+        let requests = [];
+
         function openVideo() {
             const url = "https://www.youtube.com/watch?v=eEVJfhKmIvk";
             window.open(url, '_blank');
@@ -29,6 +31,17 @@
             window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
         }
 
+        // Function to track website visits using localStorage
+        function trackVisits() {
+            let visits = localStorage.getItem('websiteVisits');
+            if (visits === null) {
+                visits = 0; // Initialize if not already set
+            }
+            visits++; // Increment the visits count
+            localStorage.setItem('websiteVisits', visits); // Save the updated count
+            document.getElementById('visitCounter').textContent = formatCounter(visits); // Display the formatted number
+        }
+
         // Format the number to always show at least 4 digits, add zeros in front if necessary
         function formatCounter(visits) {
             if (visits > 99999999) {
@@ -40,15 +53,35 @@
             }
         }
 
-        // Function to track website visits using localStorage
-        function trackVisits() {
-            let visits = localStorage.getItem('websiteVisits');
-            if (visits === null) {
-                visits = 0; // Initialize if not already set
+        // Function to show the Request Update section
+        function showRequestSection() {
+            document.getElementById('requestSection').style.display = 'block';
+        }
+
+        // Function to handle request submissions
+        function submitRequest() {
+            const idea = document.getElementById('requestIdea').value;
+            const username = document.getElementById('username').value;
+
+            if (idea && username) {
+                requests.push({ idea, username });
+                alert('Your request has been submitted!');
+                document.getElementById('requestIdea').value = ''; // Clear input fields
+                document.getElementById('username').value = '';
+            } else {
+                alert('Please fill out both the idea and username.');
             }
-            visits++; // Increment the visits count
-            localStorage.setItem('websiteVisits', visits); // Save the updated count
-            document.getElementById('visitCounter').textContent = formatCounter(visits); // Display the formatted number
+        }
+
+        // Function to show all requests
+        function showAllRequests() {
+            const requestList = document.getElementById('allRequests');
+            requestList.innerHTML = ''; // Clear any previous list
+            requests.forEach(req => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${req.username}: ${req.idea}`;
+                requestList.appendChild(listItem);
+            });
         }
     </script>
     <style>
@@ -64,12 +97,48 @@
             right: 10px;
         }
 
-        #article, #cookieArticle, #iReadyHelp {
-            display: none;
-            margin-top: 20px;
+        /* Red/black faded button */
+        .request-btn {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, red, black);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        /* Style for the visit counter on the right side */
+        /* Request section styles */
+        #requestSection {
+            display: none;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #allRequests {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .submit-btn, .view-requests-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 14px;
+            background-color: #555;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Style for the visit counter */
         .visit-counter {
             position: fixed;
             right: 10px;
@@ -83,22 +152,21 @@
             width: 220px;
         }
 
-        /* Styling for the text above the counter */
         .visit-counter p {
             margin: 0;
             font-size: 14px;
             margin-bottom: 5px;
         }
 
-        /* Styling for the counter numbers */
         .visit-counter h3 {
             margin: 0;
-            font-size: 36px; /* Large, but readable */
+            font-size: 36px;
             letter-spacing: 2px;
         }
     </style>
 </head>
-<body onload="trackVisits()"> <!-- Calls trackVisits() when the page loads -->
+<body onload="trackVisits()">
+
     <h1>fwee bobux</h1>
     <button onclick="openVideo()">click me for bobux</button>
     <br><br>
@@ -106,6 +174,9 @@
     <br><br>
     <a href="javascript:void(0)" class="bottom-right" onclick="showArticle()">Want me to build your website?</a>
     <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="showCookieClicker()">Want to Auto Cookie Clicker?</a>
+
+    <!-- Red/black faded button for request -->
+    <button class="request-btn" onclick="showRequestSection()">Request an Update?</button>
 
     <div class="top-right">
         <a href="javascript:void(0)" onclick="showIReadyHelp()">Need help with I-Ready?</a>
@@ -117,6 +188,23 @@
         <p>If you want to create a website but don't know how to code, I AM HERE.</p>
         <p>No pay, I do this for free, but I can only make websites up to 8 GB (gigabytes), so a website like this (the one you are on) is about 1.80kb which is smaller than mb (megabytes) and mg are smaller than gb, so yeah.</p>
         <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
+    </div>
+
+    <!-- Request Section -->
+    <div id="requestSection">
+        <h2>Want to Request an update for this Website?</h2>
+        <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username" /><br><br>
+
+        <label for="requestIdea">Your idea:</label>
+        <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
+
+        <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
+        <button class="view-requests-btn" onclick="showAllRequests()">View All Requests</button>
+
+        <ul id="allRequests"></ul>
     </div>
 
     <div id="cookieArticle">
@@ -177,13 +265,6 @@
     }, 1000);  // Check every 1 second for cookie count and ascension
 })();
         </pre>
-    </div>
-
-    <div id="iReadyHelp">
-        <h2>When you download this file you'll know what to do</h2>
-        <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
-        <br><br>
-        <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
     </div>
 
     <!-- Website visit counter display -->
