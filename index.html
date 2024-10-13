@@ -12,19 +12,15 @@
             window.open(url, '_blank');
         }
 
-        function showArticle() {
-            const article = document.getElementById('article');
-            article.style.display = 'block';
-        }
+        function showSection(sectionId) {
+            // Hide all sections first
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
 
-        function showCookieClicker() {
-            const cookieArticle = document.getElementById('cookieArticle');
-            cookieArticle.style.display = 'block';
-        }
-
-        function showIReadyHelp() {
-            const iReadyArticle = document.getElementById('iReadyHelp');
-            iReadyArticle.style.display = 'block';
+            // Display the clicked section
+            document.getElementById(sectionId).style.display = 'block';
         }
 
         function redirectToMediaFire() {
@@ -51,11 +47,6 @@
             } else {
                 return ("0000" + visits).slice(-4); // Add leading zeroes until 9999
             }
-        }
-
-        // Function to show the Request Update section
-        function showRequestSection() {
-            document.getElementById('requestSection').style.display = 'block';
         }
 
         // Function to handle request submissions
@@ -163,26 +154,40 @@
             font-size: 36px;
             letter-spacing: 2px;
         }
+
+        .section {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body onload="trackVisits()">
 
     <h1>fwee bobux</h1>
-    <button onclick="openVideo()">click me for bobux</button>
+    <button onclick="showSection('bobuxSection')">click me for bobux</button>
     <br><br>
     <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
     <br><br>
-    <a href="javascript:void(0)" class="bottom-right" onclick="showArticle()">Want me to build your website?</a>
-    <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="showCookieClicker()">Want to Auto Cookie Clicker?</a>
+    <a href="javascript:void(0)" class="bottom-right" onclick="showSection('websiteSection')">Want me to build your website?</a>
+    <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="showSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
 
     <!-- Red/black faded button for request -->
-    <button class="request-btn" onclick="showRequestSection()">Request an Update?</button>
+    <button class="request-btn" onclick="showSection('requestSection')">Request an Update?</button>
 
     <div class="top-right">
-        <a href="javascript:void(0)" onclick="showIReadyHelp()">Need help with I-Ready?</a>
+        <a href="javascript:void(0)" onclick="showSection('iReadySection')">Need help with I-Ready?</a>
     </div>
 
-    <div id="article">
+    <!-- Sections -->
+    <div id="bobuxSection" class="section">
+        <h2>Watch "fwee bobux"</h2>
+        <button onclick="openVideo()">Watch the Video</button>
+    </div>
+
+    <div id="websiteSection" class="section">
         <h2>So you Want me to build a website for you?</h2>
         <p>This website you're on was created on GitHub Pages. GitHub Pages is a website server that you can put a free website on.</p>
         <p>If you want to create a website but don't know how to code, I AM HERE.</p>
@@ -190,24 +195,7 @@
         <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
     </div>
 
-    <!-- Request Section -->
-    <div id="requestSection">
-        <h2>Want to Request an update for this Website?</h2>
-        <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" placeholder="Enter your username" /><br><br>
-
-        <label for="requestIdea">Your idea:</label>
-        <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
-
-        <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
-        <button class="view-requests-btn" onclick="showAllRequests()">View All Requests</button>
-
-        <ul id="allRequests"></ul>
-    </div>
-
-    <div id="cookieArticle">
+    <div id="cookieClickerSection" class="section">
         <h2>Want to Auto Cookie Clicker?</h2>
         <p>This is a JavaScript file that will auto-click in Cookie Clicker. Here's how to paste the code in:</p>
         <ol>
@@ -265,6 +253,29 @@
     }, 1000);  // Check every 1 second for cookie count and ascension
 })();
         </pre>
+    </div>
+
+    <div id="iReadySection" class="section">
+        <h2>When you download this file you'll know what to do</h2>
+        <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
+        <br><br>
+        <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
+    </div>
+
+    <div id="requestSection" class="section">
+        <h2>Want to Request an update for this Website?</h2>
+        <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username" /><br><br>
+
+        <label for="requestIdea">Your idea:</label>
+        <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
+
+        <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
+        <button class="view-requests-btn" onclick="showAllRequests()">View All Requests</button>
+
+        <ul id="allRequests"></ul>
     </div>
 
     <!-- Website visit counter display -->
