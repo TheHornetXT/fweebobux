@@ -7,27 +7,7 @@
     <script>
         let requests = [];
 
-        function openVideo() {
-            const url = "https://www.youtube.com/watch?v=eEVJfhKmIvk";
-            window.open(url, '_blank');
-        }
-
-        // Toggle the visibility of a section
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            // If the section is already visible, hide it. Otherwise, show it.
-            if (section.style.display === 'block') {
-                section.style.display = 'none';
-            } else {
-                section.style.display = 'block';
-            }
-        }
-
-        function redirectToMediaFire() {
-            window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
-        }
-
-        // Function to track website visits using localStorage
+        // Track visits and show the counter
         function trackVisits() {
             let visits = localStorage.getItem('websiteVisits');
             if (visits === null) {
@@ -46,6 +26,17 @@
                 return visits.toString(); // Display full number once it exceeds 9999
             } else {
                 return ("0000" + visits).slice(-4); // Add leading zeroes until 9999
+            }
+        }
+
+        // Toggle the visibility of a section
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            // If the section is already visible, hide it. Otherwise, show it.
+            if (section.style.display === 'block') {
+                section.style.display = 'none';
+            } else {
+                section.style.display = 'block';
             }
         }
 
@@ -77,11 +68,19 @@
 
         // Function to hide all sections on load
         window.onload = function() {
+            // Hide all sections
             const sections = document.querySelectorAll('.section');
             sections.forEach(section => {
                 section.style.display = 'none'; // Hide all sections by default
             });
+
+            // Call trackVisits function to handle the counter
+            trackVisits();
         };
+
+        function redirectToMediaFire() {
+            window.open('https://www.mediafire.com/file/zkvefil7oz88jqb/icodeV1.txt/file', '_blank');
+        }
     </script>
     <style>
         .bottom-right {
