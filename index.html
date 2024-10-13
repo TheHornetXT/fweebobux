@@ -12,15 +12,15 @@
             window.open(url, '_blank');
         }
 
-        function showSection(sectionId) {
-            // Hide all sections first
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
+        // Toggle the visibility of a section
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            // If the section is already visible, hide it. Otherwise, show it.
+            if (section.style.display === 'block') {
                 section.style.display = 'none';
-            });
-
-            // Display the clicked section
-            document.getElementById(sectionId).style.display = 'block';
+            } else {
+                section.style.display = 'block';
+            }
         }
 
         function redirectToMediaFire() {
@@ -74,6 +74,14 @@
                 requestList.appendChild(listItem);
             });
         }
+
+        // Function to hide all sections on load
+        window.onload = function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none'; // Hide all sections by default
+            });
+        };
     </script>
     <style>
         .bottom-right {
@@ -104,8 +112,8 @@
         }
 
         /* Request section styles */
-        #requestSection {
-            display: none;
+        .section {
+            display: none; /* Hide all sections by default */
             margin-top: 20px;
             background-color: #f0f0f0;
             padding: 20px;
@@ -154,31 +162,23 @@
             font-size: 36px;
             letter-spacing: 2px;
         }
-
-        .section {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-        }
     </style>
 </head>
-<body onload="trackVisits()">
+<body>
 
     <h1>fwee bobux</h1>
-    <button onclick="showSection('bobuxSection')">click me for bobux</button>
+    <button onclick="toggleSection('bobuxSection')">click me for bobux</button>
     <br><br>
     <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
     <br><br>
-    <a href="javascript:void(0)" class="bottom-right" onclick="showSection('websiteSection')">Want me to build your website?</a>
-    <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="showSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
+    <a href="javascript:void(0)" class="bottom-right" onclick="toggleSection('websiteSection')">Want me to build your website?</a>
+    <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="toggleSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
 
     <!-- Red/black faded button for request -->
-    <button class="request-btn" onclick="showSection('requestSection')">Request an Update?</button>
+    <button class="request-btn" onclick="toggleSection('requestSection')">Request an Update?</button>
 
     <div class="top-right">
-        <a href="javascript:void(0)" onclick="showSection('iReadySection')">Need help with I-Ready?</a>
+        <a href="javascript:void(0)" onclick="toggleSection('iReadySection')">Need help with I-Ready?</a>
     </div>
 
     <!-- Sections -->
