@@ -1,189 +1,385 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fwee bobux</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        #content {
-            display: none; /* Hide the content until CAPTCHA is solved */
-        }
-        .captcha-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .captcha-container h2 {
-            margin-bottom: 20px;
-        }
-        .bottom-right {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-        }
-        .top-right {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-        }
-        .request-btn {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, red, black);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .section {
-            display: none; /* Hide all sections by default */
-            margin-top: 20px;
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .submit-btn, .view-requests-btn {
-            margin-top: 10px;
-            padding: 8px 15px;
-            font-size: 14px;
-            background-color: #555;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .visit-counter {
-            position: fixed;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            width: 220px;
-        }
-        .visit-counter p {
-            margin: 0;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        .visit-counter h3 {
-            margin: 0;
-            font-size: 36px;
-            letter-spacing: 2px;
-        }
-        .request-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <!-- CAPTCHA section -->
-    <div class="captcha-container" id="captcha-container">
-        <h2>Please verify you're human</h2>
-        <div class="g-recaptcha" data-sitekey="6LcUdpMqAAAAAIvBSfxZ4xwP4VkmbRVGMvIkzOn1" data-callback="onCaptchaSuccess"></div>
-    </div>
-
-    <!-- Main content section -->
-    <div id="content">
-        <h1>fwee bobux</h1>
-        <button onclick="toggleSection('bobuxSection')">click me for bobux</button>
-        <br><br>
-        <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
-        <br><br>
-        <a href="javascript:void(0)" class="bottom-right" onclick="toggleSection('websiteSection')">Want me to build your website?</a>
-        <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="toggleSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
-        <button class="request-btn" onclick="toggleSection('requestSection')">Request an Update?</button>
-        <button class="request-btn" style="top: 60px;" onclick="toggleSection('viewRequestsSection')">View All Requests</button>
-
-        <div class="top-right">
-            <a href="javascript:void(0)" onclick="toggleSection('iReadySection')">Need help with I-Ready?</a>
-        </div>
-
-        <!-- Sections -->
-        <div id="bobuxSection" class="section">
-            <h2>Watch "fwee bobux"</h2>
-            <button onclick="openVideo()">Watch the Video</button>
-        </div>
-
-        <div id="websiteSection" class="section">
-            <h2>So you Want me to build a website for you?</h2>
-            <p>This website you're on was created on GitHub Pages. GitHub Pages is a website server that you can put a free website on.</p>
-            <p>If you want to create a website but don't know how to code, I AM HERE.</p>
-            <p>No pay, I do this for free, but I can only make websites up to 8 GB (gigabytes), so a website like this (the one you are on) is about 1.80kb which is smaller than mb (megabytes) and mg are smaller than gb, so yeah.</p>
-            <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
-        </div>
-
-        <div id="cookieClickerSection" class="section">
-            <h2>Want to Auto Cookie Clicker?</h2>
-            <p>This is a JavaScript file that will auto-click in Cookie Clicker. Here's how to paste the code in:</p>
-            <ol>
-                <li>Go to <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank">Cookie Clicker</a>.</li>
-                <li>Double click anywhere on the screen.</li>
-                <li>Click "Inspect" and go to the Console tab.</li>
-                <li>Paste the following code in:</li>
-            </ol>
-            <pre>
-// Auto Cookie Clicker code
-(function autoClickBuyAndAscend() {
-    Game.bakeryNameSet("ur welcome blud");
-    setInterval(() => document.getElementById('bigCookie').click(), 10);
-})();
-            </pre>
-        </div>
-
-        <div id="iReadySection" class="section">
-            <h2>When you download this file you'll know what to do</h2>
-            <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
-            <br><br>
-            <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
-        </div>
-
-        <div id="requestSection" class="section">
-            <h2>Want to Request an update for this Website?</h2>
-            <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter your username" /><br><br>
-            <label for="requestIdea">Your idea:</label>
-            <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
-            <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
-        </div>
-
-        <div id="viewRequestsSection" class="section">
-            <h2>All Requests</h2>
-            <div id="allRequests"></div>
-        </div>
-
-        <div class="visit-counter">
-            <p>(Amount of people that have visited this website)</p>
-            <h3 id="visitCounter">0000</h3>
-        </div>
-    </div>
-
-    <script>
-        function onCaptchaSuccess() {
-            document.getElementById('captcha-container').style.display = 'none'; // Hide CAPTCHA
-            document.getElementById('content').style.display = 'block'; // Show content
-        }
-
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.style.display = section.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function openVideo() {
-            window.open('https://www.youtube.com/watch?v=eEVJfhKmIvk', '_blank');
-        }
-    </script>
-</body>
-</html>
+<meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>fwee bobux</title>
+     <script>
+         // Load requests from localStorage if available
+         function loadRequests() {
+             const storedRequests = localStorage.getItem('websiteRequests');
+             return storedRequests ? JSON.parse(storedRequests) : [];
+         }
+ 
+         // Save requests back to localStorage
+         function saveRequests(requests) {
+             localStorage.setItem('websiteRequests', JSON.stringify(requests));
+         }
+ 
+         // Function to handle request submissions
+         function submitRequest() {
+             const idea = document.getElementById('requestIdea').value;
+             const username = document.getElementById('username').value;
+ 
+             if (idea && username) {
+                 const requests = loadRequests();
+                 requests.push({ idea, username, date: new Date().toLocaleString() });
+                 saveRequests(requests);
+ 
+                 alert('Your request has been submitted!');
+                 document.getElementById('requestIdea').value = ''; // Clear input fields
+                 document.getElementById('username').value = '';
+             } else {
+                 alert('Please fill out both the idea and username.');
+             }
+         }
+ 
+         // Function to show all requests
+         function showAllRequests() {
+             const requestList = document.getElementById('allRequests');
+             requestList.innerHTML = ''; // Clear any previous list
+             const requests = loadRequests();
+ 
+             if (requests.length === 0) {
+                 requestList.innerHTML = '<p>No requests have been submitted yet.</p>';
+                 return;
+             }
+ 
+             requests.forEach(req => {
+                 const listItem = document.createElement('div');
+                 listItem.classList.add('request-item');
+                 listItem.innerHTML = `
+                     <strong>${req.username}</strong> (${req.date}): 
+                     <p>${req.idea}</p>
+                     <hr>
+                 `;
+                 requestList.appendChild(listItem);
+             });
+         }
+ 
+         // Function to toggle section visibility
+         function toggleSection(sectionId) {
+             const section = document.getElementById(sectionId);
+             section.style.display = section.style.display === 'block' ? 'none' : 'block';
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+     <style>
+         #content {
+             display: none; /* Hide the content until CAPTCHA is solved */
+         }
+ 
+         // Track visits and show the counter
+         function trackVisits() {
+             let visits = localStorage.getItem('websiteVisits');
+             if (visits === null) {
+                 visits = 0; // Initialize if not already set
+             }
+             visits++; // Increment the visits count
+             localStorage.setItem('websiteVisits', visits); // Save the updated count
+             document.getElementById('visitCounter').textContent = formatCounter(visits); // Display the formatted number
+         .captcha-container {
+             text-align: center;
+             margin-top: 50px;
+         }
+ 
+         // Format the number to always show at least 4 digits, add zeros in front if necessary
+         function formatCounter(visits) {
+             if (visits > 99999999) {
+                 return visits.toString().slice(0, 8) + "+"; // Limit to 8 digits with "+"
+             } else if (visits > 9999) {
+                 return visits.toString(); // Display full number once it exceeds 9999
+             } else {
+                 return ("0000" + visits).slice(-4); // Add leading zeroes until 9999
+             }
+         .captcha-container h2 {
+             margin-bottom: 20px;
+         }
+ 
+         // Function to hide all sections on load and track visits
+         window.onload = function() {
+             // Hide all sections
+             const sections = document.querySelectorAll('.section');
+             sections.forEach(section => {
+                 section.style.display = 'none'; // Hide all sections by default
+             });
+ 
+             // Track visits
+             trackVisits();
+         };
+     </script>
+     <style>
+         .bottom-right {
+             position: fixed;
+             bottom: 10px;
+             right: 10px;
+         }
+ 
+         .top-right {
+             position: fixed;
+             top: 10px;
+             right: 10px;
+         }
+ 
+         /* Red/black faded button */
+         .request-btn {
+             position: absolute;
+             top: 10px;
+ @@ -124,16 +39,13 @@
+             border-radius: 5px;
+             font-size: 16px;
+         }
+ 
+         /* Request section styles */
+         .section {
+             display: none; /* Hide all sections by default */
+             margin-top: 20px;
+             background-color: #f0f0f0;
+             padding: 20px;
+             border-radius: 8px;
+         }
+ 
+         .submit-btn, .view-requests-btn {
+             margin-top: 10px;
+             padding: 8px 15px;
+ @@ -144,8 +56,6 @@
+             cursor: pointer;
+             border-radius: 5px;
+         }
+ 
+         /* Style for the visit counter */
+         .visit-counter {
+             position: fixed;
+             right: 10px;
+ @@ -158,20 +68,16 @@
+             text-align: center;
+             width: 220px;
+         }
+ 
+         .visit-counter p {
+             margin: 0;
+             font-size: 14px;
+             margin-bottom: 5px;
+         }
+ 
+         .visit-counter h3 {
+             margin: 0;
+             font-size: 36px;
+             letter-spacing: 2px;
+         }
+ 
+         /* Request item styling */
+         .request-item {
+             margin-bottom: 10px;
+             padding: 10px;
+ @@ -182,128 +88,102 @@
+     </style>
+ </head>
+ <body>
+ 
+     <h1>fwee bobux</h1>
+     <button onclick="toggleSection('bobuxSection')">click me for bobux</button>
+     <br><br>
+     <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
+     <br><br>
+     <a href="javascript:void(0)" class="bottom-right" onclick="toggleSection('websiteSection')">Want me to build your website?</a>
+     <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="toggleSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
+ 
+     <!-- Red/black faded button for request -->
+     <button class="request-btn" onclick="toggleSection('requestSection')">Request an Update?</button>
+     <button class="request-btn" style="top: 60px;" onclick="toggleSection('viewRequestsSection')">View All Requests</button>
+ 
+     <div class="top-right">
+         <a href="javascript:void(0)" onclick="toggleSection('iReadySection')">Need help with I-Ready?</a>
+     </div>
+ 
+     <!-- Sections -->
+     <div id="bobuxSection" class="section">
+         <h2>Watch "fwee bobux"</h2>
+         <button onclick="openVideo()">Watch the Video</button>
+     </div>
+ 
+     <div id="websiteSection" class="section">
+         <h2>So you Want me to build a website for you?</h2>
+         <p>This website you're on was created on GitHub Pages. GitHub Pages is a website server that you can put a free website on.</p>
+         <p>If you want to create a website but don't know how to code, I AM HERE.</p>
+         <p>No pay, I do this for free, but I can only make websites up to 8 GB (gigabytes), so a website like this (the one you are on) is about 1.80kb which is smaller than mb (megabytes) and mg are smaller than gb, so yeah.</p>
+         <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
+     <!-- CAPTCHA section -->
+     <div class="captcha-container" id="captcha-container">
+         <h2>Please verify you're human</h2>
+         <div class="g-recaptcha" data-sitekey="6LcUdpMqAAAAAIvBSfxZ4xwP4VkmbRVGMvIkzOn1" data-callback="onCaptchaSuccess"></div>
+     </div>
+ 
+     <div id="cookieClickerSection" class="section">
+         <h2>Want to Auto Cookie Clicker?</h2>
+         <p>This is a JavaScript file that will auto-click in Cookie Clicker. Here's how to paste the code in:</p>
+         <ol>
+             <li>Go to <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank">Cookie Clicker</a>.</li>
+             <li>Double click anywhere on the screen.</li>
+             <li>Click "Inspect" and go to the Console tab.</li>
+             <li>Paste the following code in:</li>
+         </ol>
+         <pre>
+     <!-- Main content section -->
+     <div id="content">
+         <h1>fwee bobux</h1>
+         <button onclick="toggleSection('bobuxSection')">click me for bobux</button>
+         <br><br>
+         <a href="https://rentahitman.com" target="_blank">If you have a problem with me, Please visit this website</a>
+         <br><br>
+         <a href="javascript:void(0)" class="bottom-right" onclick="toggleSection('websiteSection')">Want me to build your website?</a>
+         <a href="javascript:void(0)" class="bottom-right" style="bottom: 40px;" onclick="toggleSection('cookieClickerSection')">Want to Auto Cookie Clicker?</a>
+         <button class="request-btn" onclick="toggleSection('requestSection')">Request an Update?</button>
+         <button class="request-btn" style="top: 60px;" onclick="toggleSection('viewRequestsSection')">View All Requests</button>
+ 
+         <div class="top-right">
+             <a href="javascript:void(0)" onclick="toggleSection('iReadySection')">Need help with I-Ready?</a>
+         </div>
+ 
+         <!-- Sections -->
+         <div id="bobuxSection" class="section">
+             <h2>Watch "fwee bobux"</h2>
+             <button onclick="openVideo()">Watch the Video</button>
+         </div>
+ 
+         <div id="websiteSection" class="section">
+             <h2>So you Want me to build a website for you?</h2>
+             <p>This website you're on was created on GitHub Pages. GitHub Pages is a website server that you can put a free website on.</p>
+             <p>If you want to create a website but don't know how to code, I AM HERE.</p>
+             <p>No pay, I do this for free, but I can only make websites up to 8 GB (gigabytes), so a website like this (the one you are on) is about 1.80kb which is smaller than mb (megabytes) and mg are smaller than gb, so yeah.</p>
+             <p>Pls email <a href="mailto:lukemcguire21113@gmail.com">lukemcguire21113@gmail.com</a> if you're interested.</p>
+         </div>
+ 
+         <div id="cookieClickerSection" class="section">
+             <h2>Want to Auto Cookie Clicker?</h2>
+             <p>This is a JavaScript file that will auto-click in Cookie Clicker. Here's how to paste the code in:</p>
+             <ol>
+                 <li>Go to <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank">Cookie Clicker</a>.</li>
+                 <li>Double click anywhere on the screen.</li>
+                 <li>Click "Inspect" and go to the Console tab.</li>
+                 <li>Paste the following code in:</li>
+             </ol>
+             <pre>
+ // Auto Cookie Clicker code
+ (function autoClickBuyAndAscend() {
+     // Change the player's name to "ur welcome blud"
+     Game.bakeryNameSet("ur welcome blud");
+     setInterval(() => document.getElementById('bigCookie').click(), 10);
+ })();
+             </pre>
+         </div>
+ 
+         <div id="iReadySection" class="section">
+             <h2>When you download this file you'll know what to do</h2>
+             <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
+             <br><br>
+             <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
+         </div>
+ 
+         <div id="requestSection" class="section">
+             <h2>Want to Request an update for this Website?</h2>
+             <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
+             <label for="username">Username:</label>
+             <input type="text" id="username" placeholder="Enter your username" /><br><br>
+             <label for="requestIdea">Your idea:</label>
+             <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
+             <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
+         </div>
+ 
+         <div id="viewRequestsSection" class="section">
+             <h2>All Requests</h2>
+             <div id="allRequests"></div>
+         </div>
+ 
+         <div class="visit-counter">
+             <p>(Amount of people that have visited this website)</p>
+             <h3 id="visitCounter">0000</h3>
+         </div>
+     </div>
+ 
+     // Auto-click on the big cookie
+     setInterval(function() {
+         document.getElementById('bigCookie').click();
+     }, 10);  // Adjust the interval (10 milliseconds) for clicking the cookie
+ 
+     // Auto-buy store upgrades
+     setInterval(function() {
+         for (var i = 0; i < Game.UpgradesInStore.length; i++) {
+             var upgrade = Game.UpgradesInStore[i];
+             if (Game.cookies >= upgrade.getPrice()) {
+                 upgrade.buy();  // Buy the upgrade if you can afford it
+                 console.log("Bought upgrade:", upgrade.name);
+                 return;  // Exit the loop once an upgrade is bought
+             }
+     <script>
+         function onCaptchaSuccess() {
+             document.getElementById('captcha-container').style.display = 'none'; // Hide CAPTCHA
+             document.getElementById('content').style.display = 'block'; // Show content
+         }
+     }, 1000);  // Check every 1 second for available store upgrades
+ 
+     // Auto-buy buildings (cursors, grandmas, etc.)
+     setInterval(function() {
+         for (var j = 0; j < Game.ObjectsById.length; j++) {
+             var building = Game.ObjectsById[j];
+             if (Game.cookies >= building.price) {
+                 building.buy();  // Buy the building if you can afford it
+                 console.log("Bought building:", building.name);
+                 return;  // Exit the loop once a building is bought
+             }
+         function toggleSection(sectionId) {
+             const section = document.getElementById(sectionId);
+             section.style.display = section.style.display === 'block' ? 'none' : 'block';
+         }
+     }, 1000);  // Check every 1 second for available buildings to buy
+ 
+     // Check if cookies have reached 85.184 quintillion (8.5184e+19)
+     setInterval(function() {
+         var targetCookies = 8.5184e+19;  // 85.184 quintillion cookies
+         if (Game.cookies >= targetCookies) {
+             console.log("Target cookies reached! Clicking Legacy to ascend...");
+ 
+             // Check if the Legacy button is visible (usually has the id 'legacyButton')
+             if (document.getElementById('legacyButton') && document.getElementById('legacyButton').style.display != 'none') {
+                 document.getElementById('legacyButton').click();  // Click the Legacy button
+                 console.log("Ascended!");
+             }
+         function openVideo() {
+             window.open('https://www.youtube.com/watch?v=eEVJfhKmIvk', '_blank');
+         }
+     }, 1000);  // Check every 1 second for cookie count and ascension
+ })();
+         </pre>
+     </div>
+ 
+     <div id="iReadySection" class="section">
+         <h2>When you download this file you'll know what to do</h2>
+         <a href="/mnt/data/iReady_Help.txt" download="icodeV1">Download I-Ready Help</a>
+         <br><br>
+         <button onclick="redirectToMediaFire()">If I ready download does not work Click the button to get code</button>
+     </div>
+ 
+     <div id="requestSection" class="section">
+         <h2>Want to Request an update for this Website?</h2>
+         <p>So you want to request an update for this website. Most of the ideas get put into this website, I will take any stupid idea you give me and put it in the website. Enjoy :)</p>
+         
+         <label for="username">Username:</label>
+         <input type="text" id="username" placeholder="Enter your username" /><br><br>
+ 
+         <label for="requestIdea">Your idea:</label>
+         <textarea id="requestIdea" rows="4" cols="50" placeholder="Type your idea here"></textarea><br><br>
+ 
+         <button class="submit-btn" onclick="submitRequest()">Submit Request</button>
+     </div>
+ 
+     <!-- Section to view all requests -->
+     <div id="viewRequestsSection" class="section">
+         <h2>All Requests</h2>
+         <div id="allRequests"></div>
+     </div>
+ 
+     <!-- Website visit counter display -->
+     <div class="visit-counter">
+         <p>(Amount of people that have visited this website)</p>
+         <h3 id="visitCounter">0000</h3>
+     </div>
+ 
+     </script>
+ </body>
+ </html>
